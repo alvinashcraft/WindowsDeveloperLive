@@ -1,4 +1,4 @@
-name: .NET Core build
+name: .NET Core build and deploy
 on:
   push:
     branches:
@@ -14,3 +14,12 @@ jobs:
         dotnet-version: '3.1.100'
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp 
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v1
+      with: 
+        app-name: windevlive
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }} 
+        package: ${{env.DOTNET_ROOT}}/myapp
