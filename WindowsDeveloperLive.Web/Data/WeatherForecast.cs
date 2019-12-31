@@ -1,6 +1,6 @@
 using System;
 
-namespace WindowsDeveloperLive.Web
+namespace WindowsDeveloperLive.Web.Data
 {
     public class WeatherForecast
     {
